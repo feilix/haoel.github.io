@@ -33,6 +33,8 @@
 <p>作者：左耳朵 <a href="http://coolshell.cn">http://coolshell.cn</a>
 更新时间：2016-08-10</p>
 
+<p>这篇文章及其脚本可以写的更好，欢迎到 <a href="https://github.com/haoel/haoel.github.io">https://github.com/haoel/haoel.github.io</a> 更新</p>
+
 <h2>
 <a id="准备" class="anchor" href="#%E5%87%86%E5%A4%87" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>准备</h2>
 
@@ -135,7 +137,7 @@ chmod a+rx /jffs/scripts/*
 <p><strong>route.sh 怎么来的？</strong></p>
 
 <ul>
-<li>这个脚本的路由表是由来高春辉高老板的这个项目。 <a href="https://github.com/17mon/china_ip_list">https://github.com/17mon/china_ip_list</a> （之前的<a href="https://github.com/fivesheep/chnroutes">https://github.com/fivesheep/chnroutes</a> 已经没有人维护）</li>
+<li>这个脚本的路由表是由来高春辉的这个项目。 <a href="https://github.com/17mon/china_ip_list">https://github.com/17mon/china_ip_list</a> （之前的<a href="https://github.com/fivesheep/chnroutes">https://github.com/fivesheep/chnroutes</a> 已经没有人维护）</li>
 <li>这个脚本包含5000多条路由规则，几乎包括了中国的网段。</li>
 <li>我使用这个配置生成了 <code>route.sh</code> （生成脚本 <a href="https://github.com/haoel/haoel.github.io/tree/master/scripts">https://github.com/haoel/haoel.github.io/tree/master/scripts</a> ）</li>
 <li>你可以使用 <code>route.sh add</code> 来生效路由表，用 <code>./route.sh delete</code> 来删除路由表。</li>
@@ -158,6 +160,7 @@ wget https://haoel.github.io/downloads/dnsmasq.conf.add
 <li>这个配置来自 <a href="https://github.com/felixonmars/dnsmasq-china-list">https://github.com/felixonmars/dnsmasq-china-list</a>
 </li>
 <li>因为似乎他没有加上 itunes.apple.com ，所以，我就简单的把 <code>server=itunes.apple.com/114.114.114.114</code> 加到了 <code>accelerated-domains.china.conf</code> ，然后直接改名为 dnsmasq.conf.add</li>
+<li>另外，<code>linkedin.com</code> 使用到的 <code>static.licdn.com</code> 也在这个文件中，建议去掉，不然linkedin.com打开会因为找不到相应的资源文件而异常。</li>
 <li>生成脚本 <a href="https://github.com/haoel/haoel.github.io/tree/master/scripts">https://github.com/haoel/haoel.github.io/tree/master/scripts</a> </li>
 </ul>
 
@@ -194,6 +197,18 @@ service restart_dnsmasq
 </code></pre>
 
 <p>然后查一查相关的IP是的位置在哪个国家。</p>
+
+<h2>
+<a id="已知问题" class="anchor" href="#%E5%B7%B2%E7%9F%A5%E9%97%AE%E9%A2%98" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>已知问题</h2>
+
+<h3>
+<a id="quic-的问题" class="anchor" href="#quic-%E7%9A%84%E9%97%AE%E9%A2%98" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>QUIC 的问题</h3>
+
+<p>使用上述配置，在使用Chrome访问Googlet系统的网站时，比如：www.google.com、www.youtube.com 会出现打不开页面的问题。我做了一些调查，发现，这个问题是和Google的 <a href="https://en.wikipedia.org/wiki/QUIC">QUIC</a> 协议相关，因为Safari和FireFox是没有这个问题的，因为Safari和Firefox用的是HTTPS而不是QUIC。</p>
+
+<p>Workaround的方式是 Disable Chrome的试验型的QUIC协议，在Chrome里访问 <code>chrome://flags/#enable-quic</code> 可以关闭QUIC。</p>
+
+<p>目前，我在ASUS Merlin的官方论坛发了个贴：<a href="http://www.snbforums.com/threads/quic-issue.34105/">http://www.snbforums.com/threads/quic-issue.34105/</a></p>
 
 <p>（全文完）</p>
       </section>
